@@ -41,6 +41,8 @@ data-quality-monitoring/
 │
 ├── scripts/
 │   └── quality_checks.py          # Main data validation script
+|   └── report_generator.py
+|   └── db_connection.py
 │
 ├── venv1/                         # Virtual environment
 │
