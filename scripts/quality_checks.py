@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 
 # --- Load data ---
-data_path = Path("../data/sales_data.xlsx")
+data_path = Path("data/sales_data.xlsx")
 df = pd.read_excel(data_path)
 
 # --- Quality checks ---
@@ -50,10 +50,18 @@ for k, v in summary.items():
     print(f"{k}: {v}")
 
 # --- Export issues to Excel ---
-output_path = Path("../reports/data_quality_report.xlsx")
+output_path = Path("reports/data_quality_report.xlsx")
 with pd.ExcelWriter(output_path) as writer:
     pd.DataFrame(missing_values).to_excel(writer, sheet_name="Missing Values")
     invalid_emails.to_excel(writer, sheet_name="Invalid Emails", index=False)
     invalid_dates.to_excel(writer, sheet_name="Invalid Dates", index=False)
 
 print(f"\nReport generated at: {output_path.resolve()}")
+
+from report_generator import create_report
+
+create_report(
+    missing_values=missing_values,
+    invalid_emails=invalid_emails,
+    invalid_dates=invalid_dates
+)
